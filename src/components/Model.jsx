@@ -5,7 +5,8 @@ import { useRef, useState } from "react";
 import * as THREE from "three";
 import { yellowImg } from "../utils";
 import { Canvas } from "@react-three/fiber";
-import { models } from "../constants";
+import { models, sizes } from "../constants";
+import { View } from "@react-three/drei";
 
 const Model = () => {
   const [size, setSize] = useState("small");
@@ -64,7 +65,10 @@ const Model = () => {
                 overflow: "hidden",
               }}
               eventSource={document.getElementById("root")}
-            ></Canvas>
+            >
+            <View.Port/>
+            </Canvas>
+          </div>
             <div className="mx-auto w-full">
               <p className=" text-sm font-light text-center mb-5">
                 {model.title}
@@ -77,9 +81,13 @@ const Model = () => {
                     onClick={()=> setModel(model)}/>
                   ))}
                 </ul>
+                <button className="size-btn-container">
+                {sizes.map(({label,value})=>(
+                  <span className="size-btn" style={{backgroundColor:size===value? 'white': 'transparent',color:size===value?'black':'white'}} key={label}
+                  onClick={()=>setSize(value)}>{label}</span>
+                ))} </button>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </section>
